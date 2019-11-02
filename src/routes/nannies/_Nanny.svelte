@@ -1,16 +1,19 @@
 <script>
+  export let id
   export let picture
-  export let type
+  export let firstName
   export let town
-  export let title
+  export let headline
   export let rating
   export let reviewsCount
   export let supernanny
 </script>
 
 <div>
-  <img src="{picture}" width="100%" style="height:300px;width:300px;" alt="Nanny Photo" />
-  <p>{type} - {town}</p>
-  <p>{title}</p>
-  <p>{rating} ({reviewsCount}) {supernanny ? '- Super Nanny' : ''}</p>
+  <a href="/nannies/{id}">
+    <img src="{picture}" width="100%" style="height:300px;width:300px;" alt="Nanny Photo" />
+    <p>{firstName} - {town}</p>
+    <p>{headline}</p>
+    <p>{rating} ({reviewsCount}) {supernanny ? '- Super Nanny' : ''}</p>
+  </a>
 </div>

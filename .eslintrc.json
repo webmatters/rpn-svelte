@@ -18,6 +18,7 @@
   ],
   "rules": {
     "prettier/prettier": "error",
-    "svelte3/lint-template": 2
+    "svelte3/lint-template": 2,
+    "jsx-a11y/anchor-is-valid": "off"
   }
 }
