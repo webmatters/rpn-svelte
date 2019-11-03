@@ -1,5 +1,6 @@
 <script>
 	export let segment;
+	import { showModal, showLoginModal, showRegistrationModal } from '../store.js'
 </script>
 
 <style>
@@ -54,9 +55,32 @@
 	<span id="brand">Royal Palm Nanny</span>
 	<nav>
 		<ul>
-			<li><a class='{segment === undefined ? "selected" : ""}' href='become-a-nanny'>Become a Nanny</a></li>
-			<li><a class='{segment === "register" ? "selected" : ""}' href='register'>Sign up</a></li>
-			<li><a class='{segment === "login" ? "selected" : ""}' href='login'>Log in</a></li>
+			<li>
+				<a class='{segment === undefined ? "selected" : ""}'
+					href='become-a-nanny'>Become a Nanny
+				</a>
+			</li>
+			<li>
+				<a class='{segment === "register" ? "selected" : ""}'
+					href='javascript:;'
+					on:click={() => {
+						showModal.set(true)
+						showLoginModal.set(false)
+						showRegistrationModal.set(true)
+					}}>
+					Sign up
+				</a>
+			</li>
+			<li>
+				<a class='{segment === "login" ? "selected" : ""}'
+					href='javascript:;' on:click={() => {
+					showModal.set(true)
+					showLoginModal.set(true)
+					showRegistrationModal.set(false)
+					}}>
+					Log in
+				</a>
+			</li>
 		</ul>
 	</nav>
 </div>

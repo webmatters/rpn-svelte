@@ -1,7 +1,5 @@
 <script context="module">
   export async function preload({ params, query }) {
-    // the `slug` parameter is available because
-    // this file is called [slug].svelte
     const res = await this.fetch(`nannies/${params.id}.json`)
     const data = await res.json()
     if (res.status === 200) {
@@ -14,9 +12,11 @@
 
 <script>
   import DatePicker from './_DatePicker.svelte'
-  export let nanny
-  let dateChosen = false
+  import { showModal, showLoginModal } from '../../store.js'
 
+  export let nanny
+
+  let dateChosen = false
   let startDate = null
 </script>
 
@@ -31,16 +31,6 @@
     padding: 20px;
     margin-top: 20px;
   }
-button.book {
-  background-color: rgb(255, 90, 95);
-  color: white;
-  font-size: 13px;
-  width: 100%;
-  border: none;
-  height: 40px;
-  border-radius: 4px;
-  cursor: pointer;
-}
 </style>
 
 <svelte:head>
@@ -89,7 +79,13 @@ button.book {
         <br>
         <h2>Price</h2>
         <p>${nanny.price}</p>
-        <button class="book">Book</button>
+        <button class="book styled"
+          on:click={() => {
+            showModal.set(true)
+            showLoginModal.set(true)
+          }}>
+          Book
+        </button>
       {/if}
     </aside>
   </div>
