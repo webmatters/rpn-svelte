@@ -1,6 +1,11 @@
 <script>
-	export let segment;
+	import axios from 'axios'
+	import { stores } from '@sapper/app'
 	import { showModal, showLoginModal, showRegistrationModal } from '../store.js'
+
+	const { session } = stores()
+
+	export let segment;
 </script>
 
 <style>
@@ -14,6 +19,8 @@
 	}
 	#brand {
 		float: left;
+		font-size: 1.5rem;
+		font-weight: 400;
 		padding-left: 1rem;
 	}
 	ul {
@@ -55,32 +62,25 @@
 	<span id="brand">Royal Palm Nanny</span>
 	<nav>
 		<ul>
-			<li>
-				<a class='{segment === undefined ? "selected" : ""}'
-					href='become-a-nanny'>Become a Nanny
-				</a>
-			</li>
-			<li>
-				<a class='{segment === "register" ? "selected" : ""}'
-					href='javascript:;'
-					on:click={() => {
-						showModal.set(true)
-						showLoginModal.set(false)
-						showRegistrationModal.set(true)
-					}}>
-					Sign up
-				</a>
-			</li>
-			<li>
-				<a class='{segment === "login" ? "selected" : ""}'
-					href='javascript:;' on:click={() => {
+			{#if $session.user}
+				<li style="padding: 1em 0.5em;">{$session.user}</li>
+				<li><a href='javascript:;' on:click={async () => {
+					await axios.post('auth/logout')
+					session.set({ user: null })
+				}}>Log out</a></li>
+			{:else}
+				<li><a class='{segment === undefined ? "selected" : ""}' href='become-a-nanny'>Become a Nanny</a></li>
+				<li><a href='javascript:;' on:click={() => {
+					showModal.set(true)
+					showLoginModal.set(false)
+					showRegistrationModal.set(true)
+				}}>Sign up</a></li>
+				<li><a href='javascript:;' on:click={() => {
 					showModal.set(true)
 					showLoginModal.set(true)
 					showRegistrationModal.set(false)
-					}}>
-					Log in
-				</a>
-			</li>
+				}}>Log in</a></li>
+			{/if}
 		</ul>
 	</nav>
 </div>

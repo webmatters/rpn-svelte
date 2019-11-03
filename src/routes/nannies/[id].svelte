@@ -38,7 +38,7 @@
 </svelte:head>
 
 <header>
-  <img src="{nanny.picture}" width="100%" alt="Nanny Photo" />
+  <img src="{nanny.picture}" width="50%" alt="Nanny Photo" />
 </header>
 
 <div class="container">
